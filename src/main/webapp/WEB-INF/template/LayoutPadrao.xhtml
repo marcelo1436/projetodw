@@ -8,7 +8,7 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><ui:insert name="titulo">#{}</ui:insert></title>
+	<title><ui:insert name="titulo"></ui:insert></title>
 	<h:outputStylesheet library="css" name="sistema.css" />
 	<h:outputScript library="js" name="jquery.maskMoney.js" />
 </h:head>
@@ -52,21 +52,10 @@
 					<p:menuitem value="Pesquisa Produtos"
 						outcome="/produtos/PesquisaProdutos" />
 				</p:submenu>
-				<p:submenu label="Pedidos">
-					<p:menuitem value="Novo pedido" outcome="/pedidos/CadastroPedido" />
-					<p:menuitem value="Pesquisa" outcome="/pedidos/PesquisaPedidos" />
-				</p:submenu>
 
 				<p:menuitem value="Sair" url="/j_spring_security_logout" />
 
 			</p:menubar>
-
-
-
-
-
-
-
 
 		</h:form>
 	</div>

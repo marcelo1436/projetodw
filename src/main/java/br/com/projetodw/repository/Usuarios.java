@@ -6,8 +6,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 
 import br.com.projetodw.model.Usuario;
+import br.com.projetodw.service.NegocioException;
+import br.com.projetodw.util.jpa.Transactional;
 
 public class Usuarios implements Serializable {
 
@@ -20,10 +23,11 @@ public class Usuarios implements Serializable {
 		return this.manager.find(Usuario.class, id);
 	}
 
-	public List<Usuario> vendedores() {
-		// TODO filtrar apenas vendedores (por um grupo específico)
-		return this.manager.createQuery("from Usuario", Usuario.class).getResultList();
-	}
+	// public List<Usuario> vendedores() {
+	// // TODO filtrar apenas vendedores (por um grupo específico)
+	// return this.manager.createQuery("from Usuario",
+	// Usuario.class).getResultList();
+	// }
 
 	public List<Usuario> getUsuarios() {
 		return this.manager.createQuery("from Usuario", Usuario.class).getResultList();
@@ -44,6 +48,17 @@ public class Usuarios implements Serializable {
 
 	public Usuario guardar(Usuario usuario) {
 		return manager.merge(usuario);
+	}
+
+	@Transactional
+	public void remover(Usuario usuario) {
+		try {
+			usuario = porId(usuario.getId());
+			manager.remove(usuario);
+			manager.flush();
+		} catch (PersistenceException e) {
+			throw new NegocioException("Usuário não pode ser excluído.");
+		}
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import br.com.projetodw.model.Usuario;
 import br.com.projetodw.repository.Usuarios;
+import br.com.projetodw.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
@@ -41,6 +42,12 @@ public class PesquisaUsuariosBean implements Serializable {
 
 	public void setUsuariosConsultados(List<Usuario> usuariosConsultados) {
 		this.usuariosConsultados = usuariosConsultados;
+	}
+	
+	public void excluir() {
+		usuarios.remover(usuarioSelecionado);
+	
+		FacesUtil.addInfoMessage("Usuario excluído com sucesso.");
 	}
 
 }
